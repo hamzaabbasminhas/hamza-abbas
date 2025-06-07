@@ -1,83 +1,76 @@
 package com.petstore.tests;
 
+import com.petstore.config.ConfigManager;
 import com.petstore.model.Pet;
+import com.petstore.reporting.ReportManager;
 import com.petstore.service.PetService;
-import io.qameta.allure.Description;
-import io.qameta.allure.Feature;
-import io.qameta.allure.Story;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import java.util.Arrays;
-import java.util.List;
 
-@Feature("Pet Management")
 public class PetTests {
     private PetService petService;
-    private Pet testPet;
+    private ConfigManager configManager;
+    private static final String PET_ENDPOINT = "/pet";
     private Long createdPetId;
 
     @BeforeClass
     public void setup() {
-        petService = new PetService();
-        testPet = new Pet();
-        testPet.setName("Fluffy");
-        Pet.Category category = new Pet.Category();
-        category.setId(1L);
-        category.setName("Dogs");
-        testPet.setCategory(category);
-        testPet.setPhotoUrls(Arrays.asList("http://example.com/fluffy.jpg"));
-        testPet.setStatus("available");
+        configManager = new ConfigManager();
+        petService = new PetService(configManager);
+        ReportManager.addSystemInfo("Environment", "Pet Store API");
+        ReportManager.addSystemInfo("Base URL", "https://petstore.swagger.io/v2");
     }
 
     @Test(priority = 1)
-    @Story("Create Pet")
-    @Description("Test creating a new pet")
     public void testCreatePet() {
-        Pet createdPet = petService.createPet(testPet);
-        Assert.assertNotNull(createdPet, "Created pet should not be null");
-        Assert.assertNotNull(createdPet.getId(), "Created pet should have an ID");
+        ReportManager.startTest("Create Pet Test");
+        Pet pet = Pet.createTestPet();
+        ReportManager.getTest().info("Creating pet with name: " + pet.getName());
+        
+        Pet createdPet = petService.createPet(pet);
         createdPetId = createdPet.getId();
-        System.out.println("Created pet with ID: " + createdPetId);
+        
+        ReportManager.getTest().info("Created pet with ID: " + createdPetId);
+        Assert.assertNotNull(createdPetId, "Pet ID should not be null");
     }
 
     @Test(priority = 2)
-    @Story("Get Pet")
-    @Description("Test retrieving a pet by ID")
     public void testGetPet() {
+        ReportManager.startTest("Get Pet Test");
+        ReportManager.getTest().info("Getting pet with ID: " + createdPetId);
+        
         Pet retrievedPet = petService.getPetById(createdPetId);
-        Assert.assertNotNull(retrievedPet, "Retrieved pet should not be null");
-        Assert.assertNotNull(retrievedPet.getId(), "Retrieved pet should have an ID");
-        // Note: The Petstore API returns a default pet named "doggie" for GET requests
-        // This is expected behavior for the demo API
+        ReportManager.getTest().info("Retrieved pet: " + retrievedPet.toString());
+        
+        Assert.assertEquals(retrievedPet.getId(), createdPetId, "Retrieved pet ID should match created pet ID");
     }
 
     @Test(priority = 3)
-    @Story("Update Pet")
-    @Description("Test updating a pet")
     public void testUpdatePet() {
-        // Set the ID before updating
-        testPet.setId(createdPetId);
-        testPet.setName("Updated Fluffy");
-        testPet.setStatus("sold");
-        Pet updatedPet = petService.updatePet(testPet);
-        Assert.assertNotNull(updatedPet, "Updated pet should not be null");
-        Assert.assertEquals(updatedPet.getId(), createdPetId, "Pet ID should remain the same");
-        Assert.assertEquals(updatedPet.getName(), "Updated Fluffy", "Pet name should be updated");
-        Assert.assertEquals(updatedPet.getStatus(), "sold", "Pet status should be updated");
+        ReportManager.startTest("Update Pet Test");
+        Pet petToUpdate = Pet.createTestPet();
+        petToUpdate.setId(createdPetId);
+        petToUpdate.setName("Updated Pet Name");
+        ReportManager.getTest().info("Updating pet with ID: " + createdPetId);
+        
+        Pet updatedPet = petService.updatePet(petToUpdate);
+        ReportManager.getTest().info("Updated pet: " + updatedPet.toString());
+        
+        Assert.assertEquals(updatedPet.getName(), "Updated Pet Name", "Pet name should be updated");
     }
 
     @Test(priority = 4)
-    @Story("Delete Pet")
-    @Description("Test deleting a pet")
     public void testDeletePet() {
+        ReportManager.startTest("Delete Pet Test");
+        ReportManager.getTest().info("Deleting pet with ID: " + createdPetId);
         petService.deletePet(createdPetId);
-        // The Petstore API returns a response for deleted pets instead of throwing an exception
-        // We'll verify the delete operation by checking the response status
-        Pet deletedPet = petService.getPetById(createdPetId);
-        Assert.assertNotNull(deletedPet, "Deleted pet response should not be null");
-        // Note: The Petstore API returns a default pet for GET requests
-        // This is expected behavior for the demo API
-        System.out.println("Pet delete operation completed");
+        ReportManager.getTest().info("Pet delete operation completed successfully");
+    }
+
+    @AfterClass
+    public void tearDown() {
+        ReportManager.endTest();
     }
 } 

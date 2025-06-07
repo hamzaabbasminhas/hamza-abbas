@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Pet Store API Test Suite">
-    <test name="Pet Management Tests">
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
+    </listeners>
+    <test name="Pet Tests">
         <classes>
             <class name="com.petstore.tests.PetTests"/>
         </classes>

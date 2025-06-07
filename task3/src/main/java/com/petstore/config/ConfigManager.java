@@ -3,8 +3,9 @@ package com.petstore.config;
 import io.restassured.specification.RequestSpecification;
 import io.restassured.specification.ResponseSpecification;
 import io.restassured.builder.ResponseSpecBuilder;
-
 import static io.restassured.RestAssured.given;
+import static io.restassured.filter.log.LogDetail.ALL;
+import static io.restassured.filter.log.LogDetail.STATUS;
 
 public class ConfigManager {
     private static final String BASE_URL = "https://petstore.swagger.io/v2";
@@ -12,7 +13,7 @@ public class ConfigManager {
     private final RequestSpecification requestSpec;
     private final ResponseSpecification responseSpec;
 
-    private ConfigManager() {
+    public ConfigManager() {
         requestSpec = given()
                 .baseUri(BASE_URL)
                 .contentType("application/json")

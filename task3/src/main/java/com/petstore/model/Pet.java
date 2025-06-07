@@ -1,5 +1,6 @@
 package com.petstore.model;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class Pet {
@@ -9,6 +10,28 @@ public class Pet {
     private List<String> photoUrls;
     private List<Tag> tags;
     private String status;
+
+    public static Pet createTestPet() {
+        Pet pet = new Pet();
+        pet.setId(10L);
+        pet.setName("doggie");
+        
+        Category category = new Category();
+        category.setId(1L);
+        category.setName("Dogs");
+        pet.setCategory(category);
+        
+        pet.setPhotoUrls(Arrays.asList("string"));
+        
+        Tag tag = new Tag();
+        tag.setId(0L);
+        tag.setName("string");
+        pet.setTags(Arrays.asList(tag));
+        
+        pet.setStatus("available");
+        
+        return pet;
+    }
 
     public Pet() {}
 
@@ -38,6 +61,18 @@ public class Pet {
 
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category=" + (category != null ? category.getName() : "null") +
+                ", photoUrls=" + photoUrls +
+                ", tags=" + (tags != null ? tags.stream().map(Tag::getName).toList() : "null") +
+                ", status='" + status + '\'' +
+                '}';
+    }
 
     public static class Category {
         private Long id;
