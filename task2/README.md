@@ -15,7 +15,6 @@ This project implements an automated testing framework for the Monefy mobile app
 1. **WebdriverIO**
    - Modern JavaScript-based framework
    - Built-in support for mobile testing
-   - Excellent TypeScript support
    - Rich ecosystem of plugins and services
    - Active community and regular updates
 
@@ -75,8 +74,6 @@ task2/
 - Node.js (v14 or higher)
 - Java JDK 11 or higher
 - Android SDK
-- Appium 2.x
-- UiAutomator2 driver
 
 ### Installation
 
@@ -86,18 +83,12 @@ task2/
    cd task2
    ```
 
-2. Install dependencies:
+2. Install dependencies (this will automatically install Appium and UiAutomator2):
    ```bash
    npm install
    ```
 
-3. Install Appium and UiAutomator2 driver:
-   ```bash
-   npm install -g appium
-   appium driver install uiautomator2
-   ```
-
-4. Set up environment variables:
+3. Set up environment variables:
    - Create a `.env` file in the project root
    - Add required environment variables (see `.env.example`)
 
