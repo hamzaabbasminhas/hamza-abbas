@@ -1,3 +1,5 @@
+const helpers = require('../../utils/helpers');
+
 class IncomePage {
     // Locators   
 
@@ -9,16 +11,12 @@ class IncomePage {
         return $('id=com.monefy.app.lite:id/keyboard_action_button'); // Category selection button locator
     }
 
-    get noteIcon() {
-        return $('com.monefy.app.lite:id/icon'); // Note input field locator
+    get paymentIcon() {
+        return $('id=com.monefy.app.lite:id/icon'); // Note input field locator
     }
 
     get cardInput() {
         return $('//android.widget.TextView[@resource-id="com.monefy.app.lite:id/title" and @text="Payment card"]'); // Card input field locator
-    }
-
-    get dateInput() {
-        return $('id=com.monefy.app.lite:id/textViewDate'); // Date input field locator
     }
 
     get depositsCategory() {
@@ -29,11 +27,23 @@ class IncomePage {
         return $('//android.widget.GridView[@resource-id="com.monefy.app.lite:id/gridViewCategories"]/android.widget.FrameLayout[2]'); // Cars category locator
     }
 
-    get saveButton() {
-        return $('id=com.monefy.app.lite:id/save'); // Save button locator
+    async enterAmount(amount) {
+        await helpers.enterAmount(amount);
     }
 
-    // Actions
+    async selectPaymentCard() {
+        await this.paymentIcon.click();
+        await this.cardInput.click();
+    }
+
+    async selectCategory(category) {
+        await this.categoryButton.click();
+        if (category === 'Deposits') {
+            await this.depositsCategory.click();
+        } else if (category === 'Salary') {
+            await this.salaryCategory.click();
+        }
+    }
 
 }
 

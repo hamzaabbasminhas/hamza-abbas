@@ -15,6 +15,16 @@ class BalancePage {
     async transactionCategory() {
         return await this.transactionCategoryLabel.getText();
     }
+
+    async verifyBalanceAmount(amount) {
+        const balance = await this.balanceAmount();
+        expect(balance).toContain(amount);
+    }
+
+    async verifyTransactionCategory(category) {
+        const transactionCategory = await this.transactionCategory();
+        expect(transactionCategory).toContain(category);
+    }
 }
 
 module.exports = new BalancePage(); 

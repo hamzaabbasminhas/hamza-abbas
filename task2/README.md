@@ -1,15 +1,13 @@
 # Monefy Mobile Automation Framework
 
-This project implements an automated testing framework for the Monefy mobile application using WebdriverIO and Appium. The framework is designed to be scalable, maintainable, and follows best practices in test automation.
+This project implements an automated testing framework for the Monefy mobile application using WebdriverIO and Appium.
 
 ## Tech Stack
 
-### Core Technologies
-- **WebdriverIO (v9.15.0)**: A progressive automation framework built on top of WebDriver protocol
-- **Appium (v2.4.1)**: Cross-platform mobile automation tool
+- **WebdriverIO (v9.15.0)**: Automation framework
+- **Appium (v2.4.1)**: Mobile automation tool
 - **UiAutomator2**: Android automation driver
-- **Mocha**: Test framework for structuring tests
-- **Allure**: Reporting framework for detailed test reports
+- **Allure**: Test reporting framework
 
 ### Why This Stack?
 1. **WebdriverIO**
@@ -29,22 +27,6 @@ This project implements an automated testing framework for the Monefy mobile app
    - Better performance than UiAutomator1
    - More stable and reliable
    - Better support for modern Android features
-
-## Project Structure
-
-```
-task2/
-├── config/                 # Configuration files
-│   ├── wdio.conf.js       # Base WebdriverIO configuration
-│   └── wdio.android.conf.js # Android-specific configuration
-├── tests/                 # Test specifications
-│   ├── onboarding.spec.js # Onboarding flow tests
-│   ├── expense.spec.js    # Expense management tests
-│   └── income.spec.js     # Income management tests
-├── utils/                 # Utility functions and helpers
-├── package.json          # Project dependencies and scripts
-└── appium-inspector-config.json # Appium Inspector configuration
-```
 
 ## Scalability and Maintainability Features
 
@@ -68,14 +50,40 @@ task2/
 - Screenshots on failure
 - Step-by-step test execution logs
 
+
+## Project Structure
+
+```
+task2/
+├── config/                 # Configuration files
+│   └── wdio.android.conf.js # Android configuration
+├── tests/                 # Test files
+│   ├── specs/            # Test specifications
+│   │   ├── expense.spec.js
+│   │   └── income.spec.js
+│   │   └── onboarding.spec.js
+│   └── pageobjects/      # Page Object classes
+│       ├── expense.page.js
+│       ├── income.page.js
+│       ├── balance.page.js
+│       └── home.page.js
+│       └── onboarding.page.js
+├── utils/                 # Utility functions
+├── package.json          # Dependencies and scripts
+├── Dockerfile           # Docker configuration
+├── docker-compose.yml   # Docker services
+└── .env                 # Environment variables
+```
+
 ## Setup Instructions
 
 ### Prerequisites
 - Node.js (v14 or higher)
 - Java JDK 11 or higher
 - Android SDK
+- Docker and Docker Compose (for containerized execution)
 
-### Installation
+### Local Installation
 
 1. Clone the repository:
    ```bash
@@ -83,71 +91,112 @@ task2/
    cd task2
    ```
 
-2. Install dependencies (this will automatically install Appium and UiAutomator2):
+2. Install dependencies:
    ```bash
    npm install
    ```
 
-3. Set up environment variables:
-   - Create a `.env` file in the project root
-   - Add required environment variables (see `.env.example`)
+3. Set up environment variables
+   - Copy the example environment file:
+     ```bash
+     cp example.env .env
+     ```
+
+### Docker Setup
+
+1. Build and start the containers:
+   ```bash
+   docker-compose up --build
+   ```
+
+2. To run tests only:
+   ```bash
+   docker-compose run appium npm test
+   ```
 
 ## Running Tests
 
-### Run All Tests
+### Local Execution
 ```bash
+# Run all tests
 npm test
-```
 
-### Run Android Tests
-```bash
+# Run Android tests
 npm run test:android
 ```
 
-### Generate Report
+### Docker Execution
 ```bash
-npm run report
+# Run tests in Docker
+docker-compose run appium npm test
 ```
 
-## Best Practices Implemented
+## Reporting
 
-### 1. Code Organization
-- Clear directory structure
-- Separation of test logic and page objects
-- Reusable utility functions
+### Allure Reports
+The framework uses Allure for test reporting. After each test run, you can generate and view reports that include:
 
-### 2. Error Handling
-- Comprehensive error messages
-- Screenshot capture on failure
-- Detailed logging
+- Test execution summary
+- Detailed test steps
+- Screenshots on failure
+- Environment details
+- Error messages and stack traces
 
-### 3. Test Data Management
-- Environment-specific test data
-- Data-driven test approach
-- Easy to maintain test data
+### Generating Reports
+```bash
+# Generate and open report
+npm run report
 
-### 4. Reporting
-- Detailed Allure reports
-- Test execution history
-- Failure analysis tools
+# Generate report only
+npm run report:generate
+
+# Open existing report
+npm run report:open
+```
+
+## Docker Architecture
+
+The solution uses two containers:
+
+1. **Appium Container**
+   - Runs the Appium server
+   - Executes WebdriverIO tests
+   - Generates Allure reports
+
+2. **Android Emulator Container**
+   - Provides Android emulator
+   - Connects to Appium server
+
+## Best Practices
+
+1. **Code Organization**
+   - Page Object Pattern
+   - Reusable utility functions
+   - Environment-based configuration
+
+2. **Error Handling**
+   - Screenshot capture on failure
+   - Detailed logging
+
+3. **Containerization**
+   - Docker-based execution
+   - Isolated test environment
+   - Easy CI/CD integration
 
 ## Future Improvements
 
 1. **Cross-Platform Support**
    - Add iOS test configuration
-   - Implement platform-specific utilities
+   - Platform-specific utilities
 
 2. **CI/CD Integration**
    - Add GitHub Actions workflow
    - Configure test reporting in CI
-   - Add test result notifications
 
 3. **Test Coverage**
    - Add more test scenarios
    - Implement visual testing
-   - Add performance testing
 
 4. **Framework Enhancements**
    - Add parallel test execution
-   - Implement retry mechanism
-   - Add more detailed logging 
+   - Implement retry mechanism 

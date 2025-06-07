@@ -12,6 +12,17 @@ class HomePage {
         return $('id=com.monefy.app.lite:id/balance_container'); // Balance button locator
      }
 
+    async openAddExpense() {
+        await this.addExpenseButton.click();
+    }
+
+    async openAddIncome() {
+        await this.addIncomeButton.click();
+    }
+
+    async openBalance() {
+        await this.balanceButton.click();
+    }
 }
 
 module.exports = new HomePage(); 

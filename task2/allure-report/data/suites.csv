@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","6175","should complete onboarding successfully","","Sat Jun 07 19:00:41 CEST 2025","passed","Sat Jun 07 19:00:48 CEST 2025","","Monefy Onboarding Flow","",""
+"","17806","should add a basic income successfully","","Sat Jun 07 19:00:20 CEST 2025","passed","Sat Jun 07 19:00:38 CEST 2025","","Monefy Income Management","",""
+"","18621","should add an expense with card payment and bills category","","Sat Jun 07 18:59:58 CEST 2025","passed","Sat Jun 07 19:00:17 CEST 2025","","Monefy Expense Management","",""
