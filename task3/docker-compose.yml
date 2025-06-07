@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  petstore-tests:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./target:/app/target  # Mount test results directory
+    environment:
+      - MAVEN_OPTS=-Dmaven.repo.local=/app/.m2/repository
+    command: test  # Override the default command if needed 
