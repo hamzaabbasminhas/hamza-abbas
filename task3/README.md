@@ -1,95 +1,203 @@
-# Pet Store API Automation
+# PetStore API Automation
 
-This project contains automated tests for the Pet Store API using Rest Assured, TestNG, and ExtentReports.
+This project contains automated tests for the PetStore API using Rest Assured, TestNG, and Allure reporting.
 
-## Project Structure
+## Approach
 
-```
-src/
-├── main/java/com/petstore/
-│   ├── config/         # Configuration classes
-│   ├── model/          # Data models
-│   ├── reporting/      # Reporting utilities
-│   └── service/        # API service classes
-└── test/
-    ├── java/com/petstore/tests/    # Test classes
-    └── resources/      # Test configuration files
-```
+The test automation framework follows a service-oriented architecture with the following key principles:
+
+1. **Independent Test Execution**
+   - Each test is designed to run independently
+   - Tests automatically create required test data if needed
+   - No test depends on the state from other tests
+   - This makes tests more reliable and easier to debug
+
+2. **Service Layer Abstraction**
+   - API calls are encapsulated in a service layer (`PetService`)
+   - Tests interact with the service layer instead of making direct API calls
+   - This separation of concerns makes the code more maintainable
+
+3. **Smart Test Data Management**
+   - Test data creation is handled automatically when needed
+   - No hardcoded test data or IDs
+   - Reduces test maintenance overhead
+
+## Tech Stack
+
+1. **Java 11**
+   - Strong typing and object-oriented features
+   - Rich ecosystem of testing libraries
+   - Excellent IDE support and debugging capabilities
+
+2. **Rest Assured**
+   - Fluent API for REST testing
+   - Built-in support for JSON/XML validation
+   - Easy to read and maintain test code
+   - Automatic logging of requests and responses
+
+3. **TestNG**
+   - Powerful test organization with groups and priorities
+   - Flexible test execution control
+   - Rich reporting capabilities
+   - Parallel test execution support
+
+4. **Allure Reports**
+   - Beautiful and informative test reports
+   - Step-by-step test execution details
+   - Request/response logging
+   - Test history and trends
+
+## Scalability and Maintainability
+
+1. **Easy to Add New Tests**
+   - Service layer handles all API interactions
+   - Tests only need to focus on business logic
+   - New tests can reuse existing service methods
+
+2. **Maintainable Code Structure**
+   - Clear separation of concerns:
+     - `service`: API interactions
+     - `tests`: Test logic
+     - `model`: Data models
+     - `config`: Configuration management
+     - `utils`: Utility functions
+     - `reporting`: Reporting utilities
+   - Each component has a single responsibility
+   - Easy to modify one component without affecting others
+
+3. **Robust Error Handling**
+   - Service layer handles API errors
+   - Tests focus on business validations
+   - Clear error messages and logging
+
+4. **Flexible Test Execution**
+   - Run individual tests or groups
+   - Easy to add new test groups
+   - Support for different test configurations
+
+5. **Comprehensive Reporting**
+   - Detailed test execution logs
+   - Request/response details
+   - Environment information
+   - Test history and trends
 
 ## Prerequisites
 
 - Java 11 or higher
 - Maven 3.6 or higher
+- Docker (optional, for containerized execution)
 
-## Dependencies
+## Project Structure
 
-- Rest Assured 5.3.0
-- TestNG 7.7.1
-- ExtentReports 5.1.1
-- SLF4J 2.0.9
-- Freemarker 2.3.32
-
-## Setup
-
-1. Clone the repository
-2. Navigate to the project directory
-3. Install dependencies:
-   ```bash
-   mvn clean install
-   ```
+```
+task3/
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       └── com/
+│   │           └── petstore/
+│   │               ├── config/
+│   │               │   └── ConfigManager.java
+│   │               ├── model/
+│   │               │   └── Pet.java
+│   │               ├── reporting/
+│   │               │   └── AllureManager.java
+│   │               ├── service/
+│   │               │   └── PetService.java
+│   │               ├── tests/
+│   │               │   └── PetTests.java
+│   │               └── utils/
+│   │                   └── TestUtils.java
+│   └── test/
+│       └── resources/
+│           └── testng.xml
+├── allure-results/
+├── test-output/
+├── target/
+├── .dockerignore
+├── .gitignore
+├── docker-compose.yml
+├── Dockerfile
+└── pom.xml
+```
 
 ## Running Tests
 
-To run all tests:
+### Run All Tests
 ```bash
 mvn clean test
 ```
 
-## Test Reports
+### Run Individual Tests
+You can run individual test groups using Maven profiles:
 
-After test execution, the ExtentReports report will be generated in:
-```
-test-output/ExtentReport.html
+```bash
+# Run only create tests
+mvn clean test -P create
+
+# Run only update tests
+mvn clean test -P update
 ```
 
-Open this file in your web browser to view the test results.
+## Test Groups
+
+The tests are organized into the following groups:
+
+1. `create` - Tests for creating new pets
+2. `read` - Tests for retrieving pet information
+3. `update` - Tests for updating pet information
+4. `delete` - Tests for deleting pets
+5. `crud` - Complete CRUD sequence tests
+
+Each test is designed to run independently. If a test requires a pet to exist, it will automatically create one if needed.
 
 ## Test Cases
 
-The project includes the following test cases:
-
 1. Create Pet
-   - Creates a new pet with specified details
-   - Verifies the pet is created successfully
+   - Group: `create`
+   - Description: Creates a new pet and verifies the response
 
 2. Get Pet
-   - Retrieves a pet by ID
-   - Verifies the retrieved pet details
+   - Group: `read`
+   - Description: Retrieves a pet by ID and verifies the response
 
 3. Update Pet
-   - Updates an existing pet's information
-   - Verifies the update is successful
+   - Group: `update`
+   - Description: Updates an existing pet and verifies the changes
 
 4. Delete Pet
-   - Deletes a pet by ID
-   - Verifies the deletion is successful
+   - Group: `delete`
+   - Description: Deletes a pet and verifies the deletion
 
-## API Endpoints
+## Test Dependencies
 
-Base URL: `https://petstore.swagger.io/v2`
+Each test is designed to be independent:
+- If a test needs a pet to exist, it will automatically create one
+- Tests can be run individually or as part of the full CRUD sequence
+- No test depends on the state from other tests
 
-Endpoints:
-- POST `/pet` - Create a new pet
-- GET `/pet/{petId}` - Get pet by ID
-- PUT `/pet` - Update pet
-- DELETE `/pet/{petId}` - Delete pet
+## Reports
 
-## Report Features
+After running the tests, you can find the following reports:
+- Allure Report: `allure-results/`
+- TestNG Report: `test-output/`
 
-The ExtentReports report includes:
-- Test execution summary
-- Detailed test steps
-- Request and response information
-- Test status (Pass/Fail)
-- System information
-- Timestamps for each step 
+## Docker Support
+
+The project includes Docker support for containerized test execution:
+
+1. Build the Docker image:
+```bash
+docker build -t petstore-tests .
+```
+
+2. Run tests in Docker:
+```bash
+docker-compose up
+```
+
+The Docker setup includes:
+- Java 11 base image
+- Maven for dependency management
+- Allure reporting support
+- Volume mounting for test results 

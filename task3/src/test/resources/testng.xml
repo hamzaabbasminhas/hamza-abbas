@@ -5,6 +5,11 @@
         <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
     </listeners>
     <test name="Pet Tests">
+        <groups>
+            <run>
+                <include name="crud"/>
+            </run>
+        </groups>
         <classes>
             <class name="com.petstore.tests.PetTests"/>
         </classes>
