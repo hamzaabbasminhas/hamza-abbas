@@ -178,9 +178,31 @@ Each test is designed to be independent:
 
 ## Reports
 
-After running the tests, you can find the following reports:
-- Allure Report: `allure-results/`
-- TestNG Report: `test-output/`
+After running the tests, you can find the Extent Reports in:
+- `test-output/ExtentReport.html`
+
+### Viewing Extent Reports
+
+1. Navigate to the `test-output` directory
+2. Open `ExtentReport.html` in any web browser
+3. The report includes:
+   - Test execution summary
+   - Detailed test steps
+   - Request and response information
+   - Test status (Pass/Fail)
+   - System information
+   - Timestamps for each step
+
+### Report Features
+
+The Extent Reports include:
+- Test execution summary with pass/fail statistics
+- Detailed test steps with timestamps
+- Request and response information for API calls
+- System information and environment details
+- Screenshots (if configured)
+- Test execution time
+- Test history and trends
 
 ## Docker Support
 
