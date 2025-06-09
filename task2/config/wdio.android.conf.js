@@ -67,11 +67,8 @@ exports.config = {
         ui: 'bdd',
         timeout: 60000
     },
-    beforeSession: function () {
-        require('@wdio/sync').$;
-    },
-    before: function () {
-        browser.setWindowSize(1920, 1080);
+    before: async function () {
+        await browser.setWindowSize(1920, 1080);
     },
     afterTest: async function(test, context, { error, result, duration, passed, retries }) {
         if (error) {
