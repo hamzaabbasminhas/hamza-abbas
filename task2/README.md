@@ -50,7 +50,6 @@ This project implements an automated testing framework for the Monefy mobile app
 - Screenshots on failure
 - Step-by-step test execution logs
 
-
 ## Project Structure
 
 ```
@@ -70,8 +69,6 @@ task2/
 │       └── onboarding.page.js
 ├── utils/                 # Utility functions
 ├── package.json          # Dependencies and scripts
-├── Dockerfile           # Docker configuration
-├── docker-compose.yml   # Docker services
 └── .env                 # Environment variables
 ```
 
@@ -81,39 +78,45 @@ task2/
 - Node.js (v14 or higher)
 - Java JDK 11 or higher
 - Android SDK
-- Docker and Docker Compose (for containerized execution)
+- Appium (v2.4.1)
+- UiAutomator2 Driver
+- Android Emulator with Monefy app installed
 
-### Local Installation
+### Environment Setup
 
-1. Clone the repository:
+1. Start your Android emulator and ensure Monefy app is installed on it
+
+2. Configure `.env` file with your emulator details:
+   ```env
+   DEVICE_NAME=emulator-5554  # your emulator's device ID
+   PLATFORM_VERSION=13        # your Android version
+   PLATFORM_NAME=Android
+   APP_PACKAGE=com.monefy.app.lite
+   APP_ACTIVITY=com.monefy.activities.main.MainActivity_
+   ```
+
+### Installation Steps
+
+1. Install Appium globally:
+   ```bash
+   npm install -g appium@2.4.1
+   ```
+
+2. Install UiAutomator2 driver:
+   ```bash
+   appium driver install uiautomator2
+   ```
+
+3. Clone the repository:
    ```bash
    git clone <repository-url>
    cd task2
    ```
 
-2. Install dependencies:
+4. Install dependencies:
    ```bash
    npm install
    ```
-
-3. Set up environment variables
-   - Copy the example environment file:
-     ```bash
-     cp example.env .env
-     ```
-
-### Docker Setup
-
-1. Build and start the containers:
-   ```bash
-   docker-compose up --build
-   ```
-
-2. To run tests only:
-   ```bash
-   docker-compose run appium npm test
-   ```
-
 ## Running Tests
 
 ### Local Execution
@@ -123,12 +126,6 @@ npm test
 
 # Run Android tests
 npm run test:android
-```
-
-### Docker Execution
-```bash
-# Run tests in Docker
-docker-compose run appium npm test
 ```
 
 ## Reporting
@@ -154,19 +151,6 @@ npm run report:generate
 npm run report:open
 ```
 
-## Docker Architecture
-
-The solution uses two containers:
-
-1. **Appium Container**
-   - Runs the Appium server
-   - Executes WebdriverIO tests
-   - Generates Allure reports
-
-2. **Android Emulator Container**
-   - Provides Android emulator
-   - Connects to Appium server
-
 ## Best Practices
 
 1. **Code Organization**
@@ -177,11 +161,6 @@ The solution uses two containers:
 2. **Error Handling**
    - Screenshot capture on failure
    - Detailed logging
-
-3. **Containerization**
-   - Docker-based execution
-   - Isolated test environment
-   - Easy CI/CD integration
 
 ## Future Improvements
 
@@ -197,6 +176,4 @@ The solution uses two containers:
    - Add more test scenarios
    - Implement visual testing
 
-4. **Framework Enhancements**
-   - Add parallel test execution
-   - Implement retry mechanism 
+4. **Framework Enhancements** 

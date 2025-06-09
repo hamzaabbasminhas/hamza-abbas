@@ -2,6 +2,7 @@ package com.petstore.model;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Pet {
     private Long id;
@@ -69,7 +70,7 @@ public class Pet {
                 ", name='" + name + '\'' +
                 ", category=" + (category != null ? category.getName() : "null") +
                 ", photoUrls=" + photoUrls +
-                ", tags=" + (tags != null ? tags.stream().map(Tag::getName).toList() : "null") +
+                ", tags=" + (tags != null ? tags.stream().map(Tag::getName).collect(Collectors.toList()) : "null") +
                 ", status='" + status + '\'' +
                 '}';
     }
