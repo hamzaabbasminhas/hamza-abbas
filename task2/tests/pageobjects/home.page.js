@@ -1,15 +1,15 @@
 class HomePage {
     // Locators
     get addExpenseButton() {
-        return $('id=com.monefy.app.lite:id/expense_button'); // Add expense button locator
+        return $('id=com.monefy.app.lite:id/expense_button'); 
     }
 
     get addIncomeButton() {
-        return $('id=com.monefy.app.lite:id/income_button'); // Add income button locator
+        return $('id=com.monefy.app.lite:id/income_button');
     }
 
     get balanceButton() { 
-        return $('id=com.monefy.app.lite:id/balance_container'); // Balance button locator
+        return $('id=com.monefy.app.lite:id/balance_container');
      }
 
     async openAddExpense() {

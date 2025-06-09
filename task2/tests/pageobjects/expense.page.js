@@ -4,27 +4,27 @@ class ExpensePage {
     // Locators   
 
     get amountInput() {
-        return $('id=com.monefy.app.lite:id/amount_text'); // Amount input field locator
+        return $('id=com.monefy.app.lite:id/amount_text'); 
     }
 
     get categoryButton() {
-        return $('id=com.monefy.app.lite:id/keyboard_action_button'); // Category selection button locator
+        return $('id=com.monefy.app.lite:id/keyboard_action_button'); 
     }
 
     get paymentIcon() {
-        return $('id=com.monefy.app.lite:id/icon'); // Note input field locator
+        return $('id=com.monefy.app.lite:id/icon'); 
     }
 
     get cardInput() {
-        return $('//android.widget.TextView[@resource-id="com.monefy.app.lite:id/title" and @text="Payment card"]'); // Card input field locator
+        return $('//android.widget.TextView[@resource-id="com.monefy.app.lite:id/title" and @text="Payment card"]'); 
     }
 
     get billsCategory() {
-        return $('//android.widget.GridView[@resource-id="com.monefy.app.lite:id/gridViewCategories"]/android.widget.FrameLayout[1]/android.widget.LinearLayout'); // Bills category locator
+        return $('//android.widget.GridView[@resource-id="com.monefy.app.lite:id/gridViewCategories"]/android.widget.FrameLayout[1]/android.widget.LinearLayout');
     }
 
     get carsCategory() {
-        return $('//android.widget.GridView[@resource-id="com.monefy.app.lite:id/gridViewCategories"]/android.widget.FrameLayout[2]'); // Cars category locator
+        return $('//android.widget.GridView[@resource-id="com.monefy.app.lite:id/gridViewCategories"]/android.widget.FrameLayout[2]'); 
     }
 
     async enterAmount(amount) {

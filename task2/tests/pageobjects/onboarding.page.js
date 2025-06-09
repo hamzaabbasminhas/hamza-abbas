@@ -1,7 +1,7 @@
 const helpers = require('../../utils/helpers');
 
 class OnboardingPage {
-  // Element getters using direct `id=` selectors
+
   get continueButton() {
     return $('id=com.monefy.app.lite:id/buttonContinue');
   }
@@ -13,8 +13,6 @@ class OnboardingPage {
   get crossButton() {
     return $('id=com.monefy.app.lite:id/buttonClose');
   }
-
-  // Individual steps
 
   async getStarted() {
     await helpers.waitUntilVisible(this.continueButton);

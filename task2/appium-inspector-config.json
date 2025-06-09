@@ -1,9 +1,0 @@
-{
-  "platformName": "Android",
-  "automationName": "UiAutomator2",
-  "deviceName": "emulator-5554",
-  "platformVersion": "16",
-  "appPackage": "com.monefy.app.lite",
-  "appActivity": "com.monefy.activities.main.MainActivity_",
-  "fullReset": true
-} 

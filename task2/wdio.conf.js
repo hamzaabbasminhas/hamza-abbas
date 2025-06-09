@@ -1,1 +1,0 @@
-exports.config = require('./config/wdio.android.conf').config; 

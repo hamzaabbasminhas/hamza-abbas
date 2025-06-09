@@ -5,11 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "wdio run ./config/wdio.android.conf.js",
-    "test:android": "wdio run ./config/wdio.android.conf.js",
     "report": "allure generate ./allure-results --clean && allure open",
     "report:generate": "allure generate ./allure-results --clean",
-    "report:open": "allure open allure-report",
-    "postinstall": "appium driver install uiautomator2"
+    "report:open": "allure open allure-report"
   },
   "keywords": [
     "webdriverio",
@@ -30,7 +28,6 @@
   },
   "devDependencies": {
     "@wdio/appium-service": "^9.15.0",
-    "allure-commandline": "^2.27.0",
-    "appium-uiautomator2-driver": "^4.2.3"
+    "allure-commandline": "^2.27.0"
   }
 }

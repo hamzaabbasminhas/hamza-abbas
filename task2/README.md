@@ -34,6 +34,10 @@ This project implements an automated testing framework for the Monefy mobile app
 - **Page Object Pattern**: Each screen is represented by a separate class
 - **Component-based Structure**: Reusable components for common elements
 - **Utility Functions**: Shared helper methods for common operations
+  - `helpers.js`: Centralized utility functions for common operations
+    - `enterAmount()`: Handles numeric input across the app
+    - `waitUntilVisible()`: Standardized element visibility checks
+    - `logStep()`: Allure step logging for better test reporting
 
 ### 2. Configuration Management
 - Environment-specific configurations
@@ -44,30 +48,54 @@ This project implements an automated testing framework for the Monefy mobile app
 - Tests organized by feature/flow
 - Clear separation of concerns
 - Easy to add new test cases
+- Onboarding handled as a prerequisite in beforeEach hook
+- Separate test files for different operations (add, edit, etc.)
 
 ### 4. Reporting
-- Detailed Allure reports
+- Detailed Allure reports with step-by-step logging
 - Screenshots on failure
-- Step-by-step test execution logs
+- Test execution timeline
+- Environment details
+- Error messages and stack traces
+
+## Test Scenarios Covered
+
+The framework currently automates the following key user flows, based on the exploratory testing insights:
+
+1. **Add Income** – A core financial operation verifying input and balance update.
+2. **Add Expense** – The most frequently used function, tested across various categories and payment methods.
+3. **Edit Income** – Ensures users can modify existing transactions and verify updated values in the history.
+
+### Why These Scenarios?
+
+The selected flows reflect the most critical and frequently used parts of the app from a financial user's perspective. They cover validation, data persistence, UI interaction, and balance calculations, making them ideal for end-to-end regression checks.
+
+---
+
+## Onboarding Flow Handling
+
+Onboarding is conditionally handled before test execution using a centralized helper method. This keeps the tests DRY while ensuring a consistent starting point for each scenario.  
+The helper checks if onboarding screens are present and completes them only when necessary.
+
 
 ## Project Structure
 
-```
-task2/
+```task2/
 ├── config/                 # Configuration files
 │   └── wdio.android.conf.js # Android configuration
 ├── tests/                 # Test files
 │   ├── specs/            # Test specifications
-│   │   ├── expense.spec.js
-│   │   └── income.spec.js
-│   │   └── onboarding.spec.js
+│   │   ├── expense.spec.js    # Expense management tests
+│   │   ├── income.spec.js     # Income addition tests
+│   │   └── editIncome.spec.js # Income editing tests
 │   └── pageobjects/      # Page Object classes
 │       ├── expense.page.js
 │       ├── income.page.js
 │       ├── balance.page.js
-│       └── home.page.js
+│       ├── home.page.js
 │       └── onboarding.page.js
 ├── utils/                 # Utility functions
+│   └── helpers.js        # Shared helper functions
 ├── package.json          # Dependencies and scripts
 └── .env                 # Environment variables
 ```
@@ -97,6 +125,8 @@ task2/
 
 ### Installation Steps
 
+**If appium and uiautomator are not already installed on your machine**
+
 1. Install Appium globally:
    ```bash
    npm install -g appium@2.4.1
@@ -117,15 +147,13 @@ task2/
    ```bash
    npm install
    ```
+
 ## Running Tests
 
 ### Local Execution
 ```bash
 # Run all tests
 npm test
-
-# Run Android tests
-npm run test:android
 ```
 
 ## Reporting
@@ -134,10 +162,24 @@ npm run test:android
 The framework uses Allure for test reporting. After each test run, you can generate and view reports that include:
 
 - Test execution summary
-- Detailed test steps
+- Detailed test steps with timestamps
 - Screenshots on failure
 - Environment details
 - Error messages and stack traces
+
+### Test Logging
+Each test step is logged using Allure's step functionality:
+```javascript
+await helpers.logStep('Step name', async () => {
+    // Test actions
+});
+```
+
+This provides:
+- Clear step-by-step execution logs
+- Automatic screenshots on failure
+- Better test debugging capabilities
+- Improved test maintenance
 
 ### Generating Reports
 ```bash
@@ -153,27 +195,61 @@ npm run report:open
 
 ## Best Practices
 
-1. **Code Organization**
-   - Page Object Pattern
-   - Reusable utility functions
-   - Environment-based configuration
+1. **Test Organization**
+   - Each test file focuses on a specific feature
+   - Onboarding is handled as a prerequisite in beforeEach hook
+   - Separate test files for different operations (add, edit, etc.)
 
-2. **Error Handling**
-   - Screenshot capture on failure
-   - Detailed logging
+2. **Page Objects**
+   - Each screen has its own page object
+   - Locators are centralized in page objects
+   - Reusable methods for common actions
+
+3. **Test Data**
+   - Test data is defined within test files
+   - Clear variable names for test data
+   - Consistent data format across tests
+
+4. **Error Handling**
+   - Screenshots on test failure
+   - Detailed error messages
+   - Proper cleanup after tests
+
+5. **Maintainability**
+   - DRY (Don't Repeat Yourself) principle
+   - Clear and descriptive test names
+   - Modular and reusable code structure
+   - Centralized helper functions in `utils/helpers.js`
+     - Common operations like `enterAmount()` are maintained in one place
+     - Changes to input handling only need to be made once
+     - Consistent behavior across all tests
+   - Step-by-step logging for better debugging and maintenance
+
+
+---
 
 ## Future Improvements
 
-1. **Cross-Platform Support**
-   - Add iOS test configuration
-   - Platform-specific utilities
+### 1. Test Coverage
+- Add tests for expense editing functionality
+- Implement tests for category management
+- Add tests for different payment methods
+- Include negative test scenarios (invalid inputs, error handling)
 
-2. **CI/CD Integration**
-   - Add GitHub Actions workflow
-   - Configure test reporting in CI
+### 2. Framework Enhancements
+- Implement parallel test execution for faster test runs
+- Add retry mechanism for flaky tests
+- Create custom test tags for better test organization
+- Add data-driven testing support for multiple test scenarios
 
-3. **Test Coverage**
-   - Add more test scenarios
-   - Implement visual testing
+### 3. CI/CD Integration
+- Set up GitHub Actions for automated test runs
+- Implement test result notifications (Slack/Email)
+- Add test environment management
+- Create deployment pipeline for test artifacts
 
-4. **Framework Enhancements** 
+### 4. Code Quality
+- Add ESLint for code quality checks
+- Implement pre-commit hooks for code formatting
+- Add TypeScript support for better type safety
+- Create custom ESLint rules for test best practices
