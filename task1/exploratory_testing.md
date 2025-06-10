@@ -139,31 +139,41 @@ This README documents a complete exploratory testing breakdown for the Monefy iO
 **Severity:** Medium  
 **Charter:** C-06  
 **Description:** When Budget Mode is enabled, the central chart replaces "Total Income" with "Budget", removing key income-expense insight.  
-**Suggestion:** Redesign chart to accommodate all three: Income, Expenses, and Budget, or allow toggling views.
+**Suggestion:** Redesign chart to accommodate all three: Income, Expenses, and Budget, or allow toggling views.  
+**LinkToIssue:**  
+https://drive.google.com/file/d/11YCYWHBK14DSAY4IvMt7nuugGZ0oZvBD/view?usp=drive_link
 
 ### UI-IMP-02: Missing Search Functionality in Currency List  
 **Severity:** Low  
 **Charter:** C-05  
 **Description:** No search in long list of currencies. User must scroll manually.  
-**Suggestion:** Add search input at top of list.
+**Suggestion:** Add search input at top of list.  
+**LinkToIssue:**  
+https://drive.google.com/file/d/1uhbeHWTQO34aaRy3PO11ower-upf3qdd/view?usp=drive_link
 
 ### UI-IMP-03: Inconsistent Rounding in Percentages  
 **Severity:** Low  
 **Charter:** C-03  
-**Description:** Dashboard pie chart percentages sometimes don’t sum to 100% (e.g., 99% or 101%).  
-**Suggestion:** Use robust rounding algorithm like Largest Remainder Method.
+**Description:** Dashboard pie chart percentages sometimes don't sum to 100% (e.g., 99% or 101%).  
+**Suggestion:** Use robust rounding algorithm like Largest Remainder Method.  
+**LinkToIssue:**  
+https://drive.google.com/file/d/1qJNXF7OMkek5INVsj2rgeqUND2oR749t/view?usp=drive_link
 
 ### UI-IMP-04: No Confirmation Before Deleting Transaction  
 **Severity:** Medium  
 **Charter:** C-03  
 **Description:** Deleting sensitive entries happens instantly without prompt.  
-**Suggestion:** Add confirmation modal before deletion.
+**Suggestion:** Add confirmation modal before deletion.  
+**LinkToIssue:**  
+https://drive.google.com/file/d/178LY03JNRkQ1kDa95kAAH_IpSj-eHq27/view?usp=drive_link
 
 ### UI-IMP-05: Missing Labels for Expense Category Icons  
 **Severity:** Medium  
 **Charter:** C-02 / C-05  
 **Description:** Icons on home screen have no labels, forcing users to guess or memorize categories.  
-**Suggestion:** Add text labels or tooltips for clarity.
+**Suggestion:** Add text labels or tooltips for clarity.  
+**LinkToIssue:**  
+https://drive.google.com/file/d/1IdAQUFZJAATvK_UV3GPM1zOA_TfVCBbo/view?usp=drive_link
 
 ---
 
