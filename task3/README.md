@@ -92,27 +92,27 @@ The test automation framework follows a service-oriented architecture with the f
 ```
 task3/
 ├── src/
-│   ├── main/
-│   │   └── java/
-│   │       └── com/
-│   │           └── petstore/
-│   │               ├── config/
-│   │               │   └── ConfigManager.java
-│   │               ├── model/
-│   │               │   └── Pet.java
-│   │               ├── reporting/
-│   │               │   └── AllureManager.java
-│   │               ├── service/
-│   │               │   └── PetService.java
-│   │               ├── tests/
-│   │               │   └── PetTests.java
-│   │               └── utils/
-│   │                   └── TestUtils.java
-│   └── test/
-│       └── resources/
-│           └── testng.xml
-├── allure-results/
+│   └── main/
+│       └── java/
+│           └── com/
+│               └── petstore/
+│                   ├── config/
+│                   │   └── ConfigManager.java
+│                   ├── model/
+│                   │   └── Pet.java
+│                   ├── reporting/
+│                   │   └── ReportManager.java
+│                   ├── service/
+│                   │   └── PetService.java
+│                   ├── tests/
+│                   │   └── PetTests.java
+│                   └── utils/
+│                       └── TestUtils.java
+├── test/
+│   └── resources/
+│       └── testng.xml
 ├── test-output/
+│   └── ExtentReport.html
 ├── target/
 ├── .dockerignore
 ├── .gitignore
@@ -120,6 +120,29 @@ task3/
 ├── Dockerfile
 └── pom.xml
 ```
+
+### Directory Structure Explanation
+
+1. **src/main/java/com/petstore/**
+   - `config/`: Configuration management classes
+   - `model/`: Data model classes
+   - `reporting/`: Extent Reports integration
+   - `service/`: API service layer
+   - `tests/`: Test classes
+   - `utils/`: Utility classes
+
+2. **src/test/resources/**
+   - `testng.xml`: TestNG configuration file for test execution
+
+3. **test-output/**
+   - Contains Extent Reports and test execution logs
+
+4. **Root Directory**
+   - `pom.xml`: Maven project configuration
+   - `Dockerfile`: Container configuration
+   - `docker-compose.yml`: Docker services configuration
+   - `.gitignore`: Git ignore rules
+   - `.dockerignore`: Docker ignore rules
 
 ## Running Tests
 
