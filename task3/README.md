@@ -1,6 +1,6 @@
 # PetStore API Automation
 
-This project contains automated tests for the PetStore API using Rest Assured, TestNG, and Allure reporting.
+This project contains automated tests for the PetStore API using Rest Assured, TestNG, and Extent Reports.
 
 ## Approach
 
@@ -41,7 +41,7 @@ The test automation framework follows a service-oriented architecture with the f
    - Rich reporting capabilities
    - Parallel test execution support
 
-4. **Allure Reports**
+4. **Extent Reports**
    - Beautiful and informative test reports
    - Step-by-step test execution details
    - Request/response logging
@@ -221,5 +221,5 @@ docker-compose up
 The Docker setup includes:
 - Java 11 base image
 - Maven for dependency management
-- Allure reporting support
+- Extent Reports support
 - Volume mounting for test results 
